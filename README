@@ -2,20 +2,16 @@ RTLSDR Plugin for OpenCPN
 =======================================
 Implement rtlsdr ability for opencpn to receive ais messages
 
-Configuration using rtl_fm and aisdecoder
+Configuration using rtl_ais and aisdecoder
 =================================================
 
-First, you must be able to run rtl_fm and aisdecoder applications to recieve ais data.
+First, you must be able to run rtl_ais and aisdecoder applications to recieve ais data.
 This is independent from the plugin itself, the plugin merely runs these programs
-piping the data from rtl_fm to aisdecoder and then into opencpn.  The plugin
+piping the data from rtl_ais to aisdecoder and then into opencpn.  The plugin
 can also perform automatic calibration.
 
-For windows, I have compiled the needed programs using mingw, and
-provided binaries already (in the buildwin/bin directory)
-You must download the rtlsdr_winutilites.zip file available from sourceforge
-and extract it here to compile from source on windows and correctly build packages.
-
-Otherwise you must compile from source and install:
+You must compile from source 
+and install both rtl_fm and rtl_ais:
 
 git clone git://git.osmocom.org/rtl-sdr.git
 cd rtl-sdr
@@ -25,6 +21,11 @@ cmake ..
 make
 sudo make install
 
+git clone https://github.com/dgiardini/rtl-sdr-misc.git
+cd rtl-sdr-misc/ais
+sh build.sh
+sudo cp rtl_ais /usr/local/bin/rtl_ais
+
 wget http://www.aishub.net/downloads/aisdecoder.tar.gz
 tar zxvf aisdecoder
 cd aisdecoder
@@ -33,7 +34,7 @@ make
 sudo cp aisdecoder /usr/local/bin
 
 Test with:
-rtl_fm -f 161975000 -p 35 -s 48k | aisdecoder -h 127.0.0.1 -p 10110 -a file -c mono -d -f /dev/stdin
+rtl_ais -p 35 | aisdecoder -h 127.0.0.1 -p 10110 -a file -d -f /dev/stdin
 
 be sure to try all possible values for -p!  this program is very picky and your value must be +- 7
 of the correct value to get messages (Range +- 128)  the exact correct value gives many more messages.

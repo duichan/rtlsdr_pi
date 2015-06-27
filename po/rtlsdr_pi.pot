@@ -22,7 +22,7 @@ msgid "ais_rx"
 msgstr ""
 
 #: src/rtlsdrPrefs.cpp:69
-msgid "rtl_fm"
+msgid "rtl_ais"
 msgstr ""
 
 #: src/rtlsdrPrefs.cpp:70
@@ -76,10 +76,10 @@ msgid ""
 "but many others can work.  The antenna coax cable is spliced to the dvb-t "
 "cable, both inner and outer connections must be made.\n"
 "\n"
-"Currently ais channel A only is available with rtl_fm and aisdecoder mode. "
-"This method uses little cpu and is very efficient. \n"
-"The gnuradio implementation automatically receives both channels A and B \n"
-"simaltaniously but uses much more cpu (due to the python implementation)"
+"Both the rtl_ais and gnuradio methods automatically "
+"receive AIS channels A and B. However, rtl_ais/aisdecoder uses "
+"little cpu and is very efficient, whereas the gnuradio "
+"implementation uses much more cpu (due to python)."
 msgstr ""
 
 #: src/rtlsdrPrefs.cpp:215
@@ -120,7 +120,7 @@ msgid "Program"
 msgstr ""
 
 #: src/rtlsdrUI.cpp:120
-msgid "rtl_fm | aisdecoder"
+msgid "rtl_ais | aisdecoder"
 msgstr ""
 
 #: src/rtlsdrUI.cpp:120
@@ -210,9 +210,9 @@ msgstr ""
 #: src/rtlsdr_pi.cpp:207
 msgid ""
 "rtlsdr PlugIn for OpenCPN\n"
-"Read rtlsdr nmea messages from gr-ais ais_rx.py script. \n"
-"Support ADS-b FM radio and vhf\n"
-"Eventually version will need to link with gnu radio directly.\n"
+"Read nmea messages from rtlsdr by one of two methods. \n"
+"Also supports ADS-B, FM radio and VHF.\n"
+"Eventually version will link with gnu radio directly.\n"
 "\n"
 "The rtlsdr plugin was written by Sean D'Epagnier\n"
 msgstr ""

@@ -36,7 +36,7 @@ rtlsdrPrefs::rtlsdrPrefs( rtlsdr_pi &_rtlsdr_pi, wxWindow* parent)
     : rtlsdrPrefsBase( parent ), m_rtlsdr_pi(_rtlsdr_pi)
 {
 
-    if(!m_rtlsdr_pi.have_processes[rtlsdr_pi::RTL_FM] ||
+    if(!m_rtlsdr_pi.have_processes[rtlsdr_pi::RTL_AIS] ||
        !m_rtlsdr_pi.have_processes[rtlsdr_pi::AISDECODER]) {
         if(!m_rtlsdr_pi.have_processes[rtlsdr_pi::AIS_RX]) {
             m_rbAIS->Disable();
@@ -66,7 +66,7 @@ void rtlsdrPrefs::OnAISProgram( wxCommandEvent& event )
     if(event.GetSelection()) {
         m_stP1args->SetLabel(_("ais_rx"));
     } else {
-        m_stP1args->SetLabel(_("rtl_fm"));
+        m_stP1args->SetLabel(_("rtl_ais"));
         m_stP2args->SetLabel(_("aisdecoder"));
     }
     Fit();
@@ -205,10 +205,10 @@ a SDR receiver. see:  http://sdr.osmocom.org/trac/wiki/rtl-sdr\n\n\
 The author is using the r820t type dvb-t dongle with a standard vhf antenna, \
 but many others can work.  The antenna coax cable is spliced to the dvb-t \
 cable, both inner and outer connections must be made.\n\n\
-Currently ais channel A only is available with rtl_fm and aisdecoder mode. \
-This method uses little cpu and is very efficient. \n\
-The gnuradio implementation automatically receives both channels A and B \n\
-simaltaniously but uses much more cpu (due to the python implementation)");
+Both the rtl_ais and gnuradio methods automatically \
+receive AIS channels A and B. However, rtl_ais/aisdecoder uses \
+little cpu and is very efficient, whereas the gnuradio \
+implementation uses much more cpu (due to python).");
 
     wxMessageDialog mdlg(this,
 #ifdef __WIN32__

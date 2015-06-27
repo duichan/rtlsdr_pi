@@ -104,7 +104,7 @@ public:
       int m_AISCount;
 
       // should we support sox as a cross platform alternative to aplay?
-      enum Processes { RTL_FM, AISDECODER, AIS_RX, RTL_ADSB, APLAY, PROCESS_COUNT };
+      enum Processes { RTL_FM, RTL_AIS, AISDECODER, AIS_RX, RTL_ADSB, APLAY, PROCESS_COUNT };
       bool have_processes[PROCESS_COUNT];
 
 private:

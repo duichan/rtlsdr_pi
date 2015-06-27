@@ -84,7 +84,7 @@ rtlsdr_pi::rtlsdr_pi(void *ppimgr)
     initialize_images();
 
     // detect helper programs
-    const wxString ProcessNames[] = {_T("rtl_fm"), _T("aisdecoder"), _T("ais_rx"), _T("rtl_adsb"), _T("aplay")};
+    const wxString ProcessNames[] = {_T("rtl_fm"), _T("rtl_ais"), _T("aisdecoder"), _T("ais_rx"), _T("rtl_adsb"), _T("aplay")};
     for(int i=0; i<PROCESS_COUNT; i++) {
         // pass -h because we are only testing the binary exists in the path
         wxProcess *process = wxProcess::Open(PATH() + ProcessNames[i] + _T(" -h"));
@@ -205,9 +205,9 @@ wxString rtlsdr_pi::GetShortDescription()
 wxString rtlsdr_pi::GetLongDescription()
 {
       return _("rtlsdr PlugIn for OpenCPN\n\
-Read rtlsdr nmea messages from gr-ais ais_rx.py script. \n\
-Support ADS-b FM radio and vhf\n\
-Eventually version will need to link with gnu radio directly.\n\
+Read nmea messages from rtlsdr by one of two methods. \n\
+Also supports ADS-B, FM radio and VHF.\n\
+Eventually version will link with gnu radio directly.\n\
 \n\
 The rtlsdr plugin was written by Sean D'Epagnier\n\
 ");
@@ -412,9 +412,9 @@ void rtlsdr_pi::Start()
     switch(m_Mode) {
     case AIS:
         if(m_AISProgram == _T("aisdecoder")) {
-            m_command1 = PATH() + wxString::Format(_T("rtl_fm -f 161975000 -p %d -s 48k ") + m_P1args,
+            m_command1 = PATH() + wxString::Format(_T("rtl_ais -p %d ") + m_P1args,
                                           m_AISError);
-            m_command2 = PATH() + _T("aisdecoder -h 127.0.0.1 -p 10110 -a file -c mono -d -f /dev/stdin "
+            m_command2 = PATH() + _T("aisdecoder -h 127.0.0.1 -p 10110 -a file -d -f /dev/stdin "
                  + m_P2args);
         } else if(m_AISProgram == _T("ais_rx")) {
             m_command2 = PATH() + wxString::Format(_T("ais_rx -d -r %d -e %d ") + m_P1args,
